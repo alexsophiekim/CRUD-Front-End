@@ -1,6 +1,6 @@
 # Fullstack CRUD Application - Front End
----
-## Project Introduction
+
+### Project Introduction
 
 Our objective for this formative is to work as a team to contribute and review code in a joint code repository, create UML diagrams for planning, use a range of production tools, use agile methods to manage a group effectively, quality assure code in a group project and use a custom API. As a group we are working together to create an application that will show off images of our class's work.
 
@@ -19,7 +19,7 @@ User must be able to
 
 This repository is the front end version of our project. If cloning this reposity, you will have to also have a server running and have it connected to mongodb. The repo for our server is located [here](https://github.com/alexsophiekim/GRUD).
 
-## Installation
+### Installation
 To install everything needed for this project you need to have a stable version of Node JS and NPM installed on your computer or server;
 
 - [x] Clone Project down using clone link

@@ -21,21 +21,23 @@ $.ajax({
     }
 });
 
+$('#submittedWork').click(function(){
+  event.preventDefault();
 
-$('.btn-success').click(function(){
+  let workItem = $('#workItem').val();
+  let workAuthor = $('#workAuthor').val();
+  let authorURL = $('#authorURL').val();
+  let imageURL = $('#imageURL').val();
+
   $('#cardContainer').append(
-    `<div class="col-12 mb-3">
-       <div class="card">
-       <img id="workImg" src="" class="card-img-top">
+    `<div class="card col-3 mr-2 mb-3">
+       <img id="workImg" src="https://via.placeholder.com/150" class="card-img-top">
          <div class="card-body">
-           <div id="worktitle" class="card-title"><h5 class="card-title text-center"></h5></div>
+           <div id="worktitle" class="card-title"><h5 class="card-title text-center">` + workItem +`</h5></div>
            <div class="card-body">
-             <p id="workAuthor" class="card-text text-center"></p>
+             <p id="workAuthor" class="card-text text-center">` + workAuthor +`</p>
            </div>
          </div>
-       </div>
-      </div>`);
-
-
-
+       </div>`
+    );
 });

@@ -5,21 +5,36 @@ let serverPort;
 let url;
 let editing = false;
 
+$.ajax({
+    url:'config.json',
+    type:'GET',
+    dataType:'json',
+    success:function(keys){
+      console.log(keys);
+      serverURL = keys['SERVER_URL'];
+      serverPort = keys['SERVER_PORT'];
+      url = `${keys['SERVER_URL']}:${keys['SERVER_PORT']}`;
+    },
+    error:function(err){
+      console.log(err);
+      console.log('Something went wrongs');
+    }
+});
 
 
-<div class="row">
-  <div class="col-md-4">
-    <div class="card mb-4 shadow-sm">
-      <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-      <div class="card-body">
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-          <small class="text-muted">9 mins</small>
-        </div>
-      </div>
-    </div>
-  </div>
+$('.btn-success').click(function(){
+  $('#cardContainer').empty();
+  for (var i = 0; i < data.length; i++) {
+      let layout = `<div class="col-12 mb-3">
+                     <div class="card">
+                     <img id="workImg" src="" class="card-img-top">
+                       <div class="card-body">
+                         <div id="worktitle" class="card-title"><h5 class="card-title text-center"></h5></div>
+                         <div class="card-body">
+                           <p id="workAuthor" class="card-text text-center"></p>
+                         </div>
+                       </div>
+                     </div>
+                    </div>`
+      $('#cardContainer').append(layout);
+});

@@ -8,12 +8,28 @@ module.exports = function(grunt){
       }
     },
   // Riss working up untill here
-  jshint: {
-    files: ['js/*.js','js/!*.min.js'],
-      options: {
-        esversion: 6
-      }
-  },
+    jshint: {
+      files: ['js/*.js','js/!*.min.js'],
+        options: {
+          esversion: 6
+        }
+    },
+    watch: {
+      scripts: {
+         files: 'js/*.js',
+         tasks: ['jshint'],
+         options: {
+           interrupt: true,
+         },
+       },
+       styles: {
+         files: 'scss/style.scss',
+         tasks: ['sass'],
+         options: {
+           interrupt: true,
+         },
+       },
+     },
 
 
     // Sophie working up untill here
@@ -31,6 +47,8 @@ grunt.registerTask('checkSASS', ['sass']);
 
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.registerTask('checkJS', ['jshint']);
+grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.registerTask('watch',['watch']);
 
 // Sophie working up untill here
 

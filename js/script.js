@@ -84,10 +84,31 @@ $('#submittedWork').click(function(){
         console.log(authorURL);
         console.log(imageURL);
 
-        let workItem = $('#workItem').val(null);
-        let workAuthor = $('#workAuthor').val(null);
-        let authorURL = $('#authorURL').val(null);
-        let imageURL = $('#imageURL').val(null);
+        $('#workItem').val(null);
+        $('#workAuthor').val(null);
+        $('#authorURL').val(null);
+        $('#imageURL').val(null);
+
+        $('#cardContainer').append(
+          `<div class="card col-3 mr-2 mb-3">
+            <img id="workImg" src="https://via.placeholder.com/150" class="card-img-top">
+              <div class="card-body">
+               <div id="worktitle" class="card-title"><h5 class="card-title text-center">${result.workName}</h5></div>
+               <div>
+                <p id="workAuthor" class="card-text text-center">${result.workAuthor}</p>
+
+                <div class="d-flex justify-content-between align-items-center btn-group mt-5 col-12">
+
+                  <button type="button" class="btn btn-link text-info">More</button>
+                  <button type="button" class="btn btn-link text-warning">Edit</button>
+                  <button type="button" class="btn btn-link text-danger">Delete</button>
+
+                </div>
+
+               </div>
+              </div>
+          </div>`
+        );
       },
       error:function(err){
         console.log(err);

@@ -73,21 +73,21 @@ $('#submittedWork').click(function(){
       url: `${url}/add`,
       type: 'POST',
       data: {
-        workName: workName,
+        workName: workItem,
         workAuthor: workAuthor,
-        workImg: workImg,
+        workImg: imageURL,
         authorURL: authorURL,
       },
       success:function(result){
-        let workItem = $('#workItem').val(null);
-        let workAuthor = $('#workAuthor').val(null);
-        let authorURL = $('#authorURL').val(null);
-        let imageURL = $('#imageURL').val(null);
-
         console.log(workItem);
         console.log(workAuthor);
         console.log(authorURL);
         console.log(imageURL);
+
+        let workItem = $('#workItem').val(null);
+        let workAuthor = $('#workAuthor').val(null);
+        let authorURL = $('#authorURL').val(null);
+        let imageURL = $('#imageURL').val(null);
       },
       error:function(err){
         console.log(err);

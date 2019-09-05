@@ -98,11 +98,9 @@ $('#submittedWork').click(function(){
                 <p id="workAuthor" class="card-text text-center">${result.workAuthor}</p>
 
                 <div class="d-flex justify-content-between align-items-center btn-group mt-5 col-12">
-
                   <button type="button" class="btn btn-link text-info">More</button>
                   <button type="button" class="btn btn-link text-warning">Edit</button>
                   <button type="button" class="btn btn-link text-danger">Delete</button>
-
                 </div>
 
                </div>

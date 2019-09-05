@@ -12,6 +12,7 @@ $.ajax({
     serverURL = keys['SERVER_URL'];
     serverPort = keys['SERVER_PORT'];
     url = `${keys['SERVER_URL']}:${keys['SERVER_PORT']}`;
+    workCards();
   },
   error:function(err){
     console.log(err);
@@ -19,24 +20,28 @@ $.ajax({
   }
 });
 
-WorkCards = () => {
+workCards = () => {
   $.ajax({
     url: `${url}/view`,
     type: 'GET',
-    dataType: 'json',
+    dataType:'json',
     success:function(data) {
+      // console.log(data);
       $("#cardContainer").empty();
 
-      console.log(data);
       for (var i = 0; i < data.length; i++) {
         $('#cardContainer').append(
           `<div class="card col-3 mr-2 mb-3">
             <img id="workImg" src="https://via.placeholder.com/150" class="card-img-top">
-              <div class="card-body">
-               <div id="worktitle" class="card-title"><h5 class="card-title text-center">${data[i].workName}</h5></div>
-               <div class="card-body">
+              <div>
+               <div id="worktitle" class="card-title"><h5 class="card-title text-center mt-3" data-id="${data[i].workName}">${data[i].workName}</h5></div>
+
                 <p id="workAuthor" class="card-text text-center">${data[i].workAuthor}</p>
-               </div>
+                <div class="d-flex justify-content-between align-items-center btn-group mt-5 col-12">
+                  <button type="button" class="btn btn-link text-warning d-none">Edit</button>
+                  <button type="button" class="btn btn-link text-danger d-none deleteBtn">Delete</button>
+                </div>
+
               </div>
           </div>`
         );
@@ -51,7 +56,7 @@ WorkCards = () => {
 
 $('#submittedWork').click(function(){
   event.preventDefault();
-
+  console.log('clicked');
   let workItem = $('#workItem').val();
   let workAuthor = $('#workAuthor').val();
   let authorURL = $('#authorURL').val();
@@ -66,7 +71,7 @@ $('#submittedWork').click(function(){
   }else if(imageURL.length === 0){
     console.log('Please give a URL for this project');
   }else {
-
+    console.log('make request');
     $.ajax({
       url: `${url}/add`,
       type: 'POST',
@@ -89,18 +94,15 @@ $('#submittedWork').click(function(){
         $('#cardContainer').append(
           `<div class="card col-3 mr-2 mb-3">
             <img id="workImg" src="https://via.placeholder.com/150" class="card-img-top">
-              <div class="card-body">
-               <div id="worktitle" class="card-title"><h5 class="card-title text-center">${result.workName}</h5></div>
-               <div>
-                <p id="workAuthor" class="card-text text-center">${result.workAuthor}</p>
+              <div>
+               <div id="worktitle" class="card-title"><h5 class="card-title text-center mt-3" data-id="${result.workName}">${result.workName}</h5></div>
 
+                <p id="workAuthor" class="card-text text-center">${result.workAuthor}</p>
                 <div class="d-flex justify-content-between align-items-center btn-group mt-5 col-12">
-                  <button type="button" class="btn btn-link text-info">More</button>
-                  <button type="button" class="btn btn-link text-warning">Edit</button>
-                  <button type="button" class="btn btn-link text-danger">Delete</button>
+                  <button type="button" class="btn btn-link text-warning d-none">Edit</button>
+                  <button type="button" class="btn btn-link text-danger d-none deleteBtn">Delete</button>
                 </div>
 
-               </div>
               </div>
           </div>`
         );
@@ -111,6 +113,35 @@ $('#submittedWork').click(function(){
       }
     });
   }
+});
+
+$('#cardContainer').on('click', '.deleteBtn', function(){
+    event.preventDefault();
+    // console.log('clicked');
+    const workItem = $(this).parent().parent().data('id');
+    console.log(workItem);
+    // const li = $(this).parent().parent();
+
+
+
+    // $.ajax({
+    //   url: `${url}/product/${id}`,
+    //   type: 'DELETE',
+    //   data: {
+    //       workItem: sessionStorage['userID']
+    //   },
+    //   success:function(result){
+    //       if(result == '401'){
+    //           alert('401 UNAUTHORIZED');
+    //       } else {
+    //           li.remove();
+    //       }
+    //   },
+    //   error:function(err) {
+    //     console.log(err);
+    //     console.log('something went wrong deleting the product');
+    //   }
+    // })
 });
 
 
@@ -162,6 +193,17 @@ $('#registerForm').submit(function(){
        },
        success: function(result){
           console.log(result);
+          if (result === 'Sorry, this is already existed') {
+            $('#authForm').modal('show');
+            $('#errRego').append('<p class="text-danger">Sorry, this is already existes</p>');
+          } else {
+            $('#authForm').modal('hide');
+            $('#loginBtn').text('log out');
+
+            $('#jumbotron-heading').text('Welcome ' + username)
+
+            $('.btn-link').removeClass('d-none');
+          }
        },
        error: function(){
           console.log(err);
@@ -182,7 +224,7 @@ $('#loginForm').submit(function(){
   } else {
     $.ajax({
       url: `${url}/getUser`,
-      type: 'POST',
+      type: 'GET',
       data: {
         username: username,
         password: password
@@ -192,13 +234,17 @@ $('#loginForm').submit(function(){
             console.log('cannot find user with that username');
           } else if (result === 'invalid password') {
             console.log('your password id wrong');
+
           } else {
             console.log('lets log you in');
-            console.log(result);
 
             $('#authForm').modal('hide');
-            $('#loginBtn').hide();
-            $('#logoutBtn').removeClass('d-none');
+            $('#loginBtn').text('log out');
+
+            $('#jumbotron-heading').text('Welcome ' + username)
+
+            $('.btn-link').removeClass('d-none');
+
           }
       },
       error: function(err){

@@ -110,8 +110,9 @@ $('#submittedWork').click(function(){
         console.log('oops, something went wrong');
       }
     });
-  });
-  
+  }
+});
+
 
 $('#loginBtn').click(function(){
     $('#authForm').modal('show');

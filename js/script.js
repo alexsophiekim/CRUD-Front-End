@@ -6,19 +6,19 @@ let url;
 let editing = false;
 
 $.ajax({
-    url:'config.json',
-    type:'GET',
-    dataType:'json',
-    success:function(keys){
-      console.log(keys);
-      serverURL = keys['SERVER_URL'];
-      serverPort = keys['SERVER_PORT'];
-      url = `${keys['SERVER_URL']}:${keys['SERVER_PORT']}`;
-    },
-    error:function(err){
-      console.log(err);
-      console.log('Something went wrongs');
-    }
+  url:'config.json',
+  type:'GET',
+  dataType:'json',
+  success:function(keys){
+    console.log(keys);
+    serverURL = keys['SERVER_URL'];
+    serverPort = keys['SERVER_PORT'];
+    url = `${keys['SERVER_URL']}:${keys['SERVER_PORT']}`;
+  },
+  error:function(err){
+    console.log(err);
+    console.log('Something went wrongs');
+  }
 });
 
 WorkCards = () => {
